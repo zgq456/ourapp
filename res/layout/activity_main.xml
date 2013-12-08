@@ -1,11 +1,72 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.agimind.widget.SlideHolder xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/slideHolder"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
-    <ListView
-        android:id="@+id/lv"
-        android:layout_marginTop="25dp"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"></ListView>
+    tools:context=".MainActivity" >
 
-</LinearLayout>
+    <ScrollView
+        android:layout_width="200dp"
+        android:layout_height="fill_parent"
+        android:background="@color/blue" >
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/but_myprofile"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="我的资料" />
+
+            <Button
+                android:id="@+id/but_myhelp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="我的捐助" />
+
+            <!-- 
+            <Button
+                android:id="@+id/but_mynohelp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="等待捐助" />
+             -->
+            
+            <Button
+                android:id="@+id/but_allhelp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="捐助公示" />
+            
+            <Button
+                android:id="@+id/but_about"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="关于" />
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <com.example.ourapp.PullDownListView
+            android:id="@+id/pull_list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/white" >
+
+            <ListView
+                android:id="@+id/lv"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="25dp" >
+            </ListView>
+        </com.example.ourapp.PullDownListView>
+    </RelativeLayout>
+
+</com.agimind.widget.SlideHolder>
