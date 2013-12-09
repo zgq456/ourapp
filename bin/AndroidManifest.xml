@@ -11,27 +11,52 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/Login"
+        android:label="@string/app_name"
+        android:logo="@drawable/ic_launcher"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.ourapp.login"
-            android:label="@string/app_name" >
+            android:name=".FirstWelcome" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity 
+        <activity
+            android:name=".login"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
             android:name=".Detail"
-            android:label="@string/Detail"></activity>
-        <activity 
+            android:label="@string/Detail" >
+        </activity>
+        <activity
             android:name=".MainActivity"
-            android:label="@string/Listview"></activity>
-        <activity 
+            android:label="@string/Listview" >
+        </activity>
+        <activity
             android:name=".logon"
-            android:label="@string/Logon"></activity>
-        
+            android:label="@string/Logon" >
+        </activity>
+        <activity
+            android:name=".MyProfile"
+            android:label="@string/myprofile" >
+        </activity>
+        <activity
+            android:name=".MyHelp"
+            android:label="@string/myhelp" >
+        </activity>
+        <activity
+            android:name=".MyNohelp"
+            android:label="@string/mynohelp" >
+        </activity>
+        <activity
+            android:name=".AllHelp"
+            android:label="@string/allhelp" >
+        </activity>
+        <activity
+            android:name=".About"
+            android:label="@string/about" >
+        </activity>
         <activity
             android:name=".VideoPlayer"
             android:label="公益广告"

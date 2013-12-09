@@ -8,81 +8,147 @@
 package com.example.ourapp;
 
 public final class R {
+    public static final class anim {
+        public static final int rotate_down=0x7f040000;
+        public static final int rotate_up=0x7f040001;
+    }
     public static final class attr {
     }
     public static final class color {
-        public static final int blue=0x7f050000;
-        public static final int mycolor=0x7f050001;
+        public static final int blue=0x7f060000;
+        public static final int mycolor=0x7f060002;
+        public static final int white=0x7f060001;
     }
     public static final class dimen {
-        /**  Default screen margins, per the Android Design guidelines. 
-
+        /** 
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f060000;
-        public static final int activity_vertical_margin=0x7f060001;
+        public static final int activity_horizontal_margin=0x7f070003;
+        public static final int updatebar_content_height=0x7f070001;
+        public static final int updatebar_height=0x7f070000;
+        public static final int updatebar_padding=0x7f070002;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int img1=0x7f020001;
-        public static final int img2=0x7f020002;
+        public static final int arrow_down=0x7f020000;
+        public static final int arrow_up=0x7f020001;
+        public static final int first=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
+        public static final int img1=0x7f020004;
+        public static final int img2=0x7f020005;
+        public static final int welcome=0x7f020006;
     }
     public static final class id {
-        public static final int _id=0x7f0a0003;
-        public static final int action_settings=0x7f0a001c;
-        public static final int diqu=0x7f0a0012;
-        public static final int diqu_2=0x7f0a0005;
-        public static final int file=0x7f0a000f;
-        public static final int iv=0x7f0a000e;
-        public static final int iv_21=0x7f0a000b;
-        public static final int jindu=0x7f0a0015;
-        public static final int jindu_2=0x7f0a0008;
-        public static final int juankuan=0x7f0a0014;
-        public static final int juankuan_2=0x7f0a0007;
-        public static final int juanzhu=0x7f0a000d;
-        public static final int login=0x7f0a0019;
-        public static final int logo=0x7f0a0010;
-        public static final int logo_2=0x7f0a0002;
-        public static final int logon=0x7f0a001a;
-        public static final int lv=0x7f0a0000;
-        public static final int myvideoview=0x7f0a001b;
-        public static final int name=0x7f0a0011;
-        public static final int name_2=0x7f0a0004;
-        public static final int news_details_text=0x7f0a000c;
-        public static final int news_tele=0x7f0a0001;
-        public static final int password=0x7f0a0018;
-        public static final int renshu=0x7f0a0013;
-        public static final int renshu_2=0x7f0a0006;
-        public static final int riqi=0x7f0a0017;
-        public static final int riqi_2=0x7f0a000a;
-        public static final int still_need=0x7f0a0016;
-        public static final int still_need_2=0x7f0a0009;
+        public static final int _id=0x7f0b000c;
+        public static final int action_settings=0x7f0b003f;
+        public static final int age=0x7f0b002f;
+        public static final int ageLabel=0x7f0b002e;
+        public static final int ageLayout=0x7f0b002d;
+        public static final int but_about=0x7f0b0005;
+        public static final int but_allhelp=0x7f0b0004;
+        public static final int but_myhelp=0x7f0b0003;
+        public static final int but_myprofile=0x7f0b0002;
+        public static final int chatting_load_progress=0x7f0b0039;
+        public static final int diqu=0x7f0b001d;
+        public static final int diqu_2=0x7f0b000e;
+        public static final int empty_main=0x7f0b0018;
+        public static final int file=0x7f0b001a;
+        public static final int first_welcome=0x7f0b0000;
+        public static final int gender=0x7f0b0032;
+        public static final int genderLabel=0x7f0b0031;
+        public static final int genderLayout=0x7f0b0030;
+        public static final int helpLayout=0x7f0b0026;
+        public static final int iv=0x7f0b0019;
+        public static final int iv_21=0x7f0b0014;
+        public static final int iv_content=0x7f0b003d;
+        public static final int jindu=0x7f0b0020;
+        public static final int jindu_2=0x7f0b0011;
+        public static final int juankuan=0x7f0b001f;
+        public static final int juankuan_2=0x7f0b0010;
+        public static final int juanzhu=0x7f0b0016;
+        public static final int listView1=0x7f0b0009;
+        public static final int login=0x7f0b0024;
+        public static final int loginReg=0x7f0b0017;
+        public static final int logo=0x7f0b001b;
+        public static final int logo_2=0x7f0b000b;
+        public static final int logon=0x7f0b0025;
+        public static final int lv=0x7f0b0007;
+        public static final int myvideoview=0x7f0b003e;
+        public static final int name=0x7f0b001c;
+        public static final int nameLabel=0x7f0b002a;
+        public static final int nameLayout=0x7f0b0029;
+        public static final int name_2=0x7f0b000d;
+        public static final int news_details_text=0x7f0b0015;
+        public static final int news_tele=0x7f0b000a;
+        public static final int password=0x7f0b0023;
+        public static final int passwordLabel=0x7f0b002c;
+        public static final int passwordLayout=0x7f0b002b;
+        public static final int prov=0x7f0b0035;
+        public static final int provLabel=0x7f0b0034;
+        public static final int provLayout=0x7f0b0033;
+        public static final int pull_list=0x7f0b0006;
+        public static final int ref=0x7f0b003a;
+        public static final int refbar=0x7f0b003b;
+        public static final int renshu=0x7f0b001e;
+        public static final int renshu_2=0x7f0b000f;
+        public static final int riqi=0x7f0b0022;
+        public static final int riqi_2=0x7f0b0013;
+        public static final int slideHolder=0x7f0b0001;
+        public static final int still_need=0x7f0b0021;
+        public static final int still_need_2=0x7f0b0012;
+        public static final int textView1=0x7f0b0008;
+        public static final int textView2=0x7f0b0027;
+        public static final int textView3=0x7f0b0028;
+        public static final int tv_title=0x7f0b003c;
+        public static final int zone=0x7f0b0038;
+        public static final int zoneLabel=0x7f0b0037;
+        public static final int zoneLayout=0x7f0b0036;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int detail=0x7f030001;
-        public static final int listview_item=0x7f030002;
-        public static final int login=0x7f030003;
-        public static final int logon=0x7f030004;
-        public static final int videoplayer=0x7f030005;
+        public static final int about=0x7f030000;
+        public static final int activity_main=0x7f030001;
+        public static final int allhelp=0x7f030002;
+        public static final int detail=0x7f030003;
+        public static final int empty_main=0x7f030004;
+        public static final int first_welcome=0x7f030005;
+        public static final int listview_item=0x7f030006;
+        public static final int login=0x7f030007;
+        public static final int logon=0x7f030008;
+        public static final int myhelp=0x7f030009;
+        public static final int mynohelp=0x7f03000a;
+        public static final int myprofile=0x7f03000b;
+        public static final int ref=0x7f03000c;
+        public static final int ref2=0x7f03000d;
+        public static final int refresh_bar=0x7f03000e;
+        public static final int videoplayer=0x7f03000f;
     }
     public static final class menu {
-        public static final int main=0x7f090000;
+        public static final int main=0x7f0a0000;
     }
     public static final class raw {
-        public static final int family=0x7f040000;
-        public static final int name=0x7f040001;
+        public static final int family=0x7f050000;
+        public static final int name=0x7f050001;
     }
     public static final class string {
-        public static final int Detail=0x7f070003;
-        public static final int Listview=0x7f070002;
-        public static final int Login=0x7f070001;
-        public static final int Logon=0x7f070004;
-        public static final int action_settings=0x7f070006;
-        public static final int app_name=0x7f070000;
-        public static final int hello_world=0x7f070005;
+        public static final int Detail=0x7f080003;
+        public static final int Listview=0x7f080002;
+        public static final int Login=0x7f080001;
+        public static final int Logon=0x7f080004;
+        public static final int about=0x7f080011;
+        public static final int action_settings=0x7f080005;
+        public static final int allhelp=0x7f080010;
+        public static final int app_name=0x7f080000;
+        public static final int drop_dowm=0x7f080009;
+        public static final int hello_world=0x7f080006;
+        public static final int loading=0x7f08000b;
+        public static final int menu_settings=0x7f080007;
+        public static final int myhelp=0x7f08000e;
+        public static final int mynohelp=0x7f08000f;
+        public static final int myprofile=0x7f08000d;
+        public static final int release_update=0x7f08000a;
+        public static final int seen_more=0x7f08000c;
+        public static final int title_activity_main=0x7f080008;
     }
     public static final class style {
         /** 
@@ -106,10 +172,10 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f080000;
+        public static final int AppBaseTheme=0x7f090000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f080001;
+        public static final int AppTheme=0x7f090001;
     }
 }

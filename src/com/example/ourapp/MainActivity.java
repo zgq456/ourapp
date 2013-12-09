@@ -12,6 +12,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,16 +23,26 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements
 		PullDownListView.OnRefreshListioner {
-
+	boolean isExit;
 	private PullDownListView mPullDownView;
 	private ListView mListView;
 	private List<String> list = new ArrayList<String>();
 	private SimpleAdapter adapter;
 	private Handler mHandler = new Handler();
 	private int maxAount = 20;// 设置了最大数据值
+
+	Handler mHandlerExit = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			isExit = false;
+		}
+
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,59 +107,59 @@ public class MainActivity extends Activity implements
 				startActivity(intent);
 			}
 		});
-		
+
 		Button but_myprofile = (Button) findViewById(R.id.but_myprofile);
 		Button but_myhelp = (Button) findViewById(R.id.but_myhelp);
-//		Button but_mynohelp = (Button) findViewById(R.id.but_mynohelp);
+		// Button but_mynohelp = (Button) findViewById(R.id.but_mynohelp);
 		Button but_allhelp = (Button) findViewById(R.id.but_allhelp);
 		Button but_about = (Button) findViewById(R.id.but_about);
-		
+
 		but_myprofile.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				Intent intent=new Intent(MainActivity.this, MyProfile.class);
-				//intent.setClass(logon.this, login.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //直接关闭Activity
+				Intent intent = new Intent(MainActivity.this, MyProfile.class);
+				// intent.setClass(logon.this, login.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // 直接关闭Activity
 				startActivity(intent);
 			}
 		});
-		
+
 		but_myhelp.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				Intent intent=new Intent(MainActivity.this, MyHelp.class);
-				//intent.setClass(logon.this, login.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //直接关闭Activity
+				Intent intent = new Intent(MainActivity.this, MyHelp.class);
+				// intent.setClass(logon.this, login.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // 直接关闭Activity
 				startActivity(intent);
 			}
 		});
-		
-		/*but_mynohelp.setOnClickListener(new OnClickListener() {
 
-			public void onClick(View v) {
-				Intent intent=new Intent(MainActivity.this, MyNohelp.class);
-				//intent.setClass(logon.this, login.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //直接关闭Activity
-				startActivity(intent);
-			}
-		});*/
-		
+		/*
+		 * but_mynohelp.setOnClickListener(new OnClickListener() {
+		 * 
+		 * public void onClick(View v) { Intent intent=new
+		 * Intent(MainActivity.this, MyNohelp.class);
+		 * //intent.setClass(logon.this, login.class);
+		 * intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //直接关闭Activity
+		 * startActivity(intent); } });
+		 */
+
 		but_allhelp.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				Intent intent=new Intent(MainActivity.this, AllHelp.class);
-				//intent.setClass(logon.this, login.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //直接关闭Activity
+				Intent intent = new Intent(MainActivity.this, AllHelp.class);
+				// intent.setClass(logon.this, login.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // 直接关闭Activity
 				startActivity(intent);
 			}
 		});
-		
+
 		but_about.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				Intent intent=new Intent(MainActivity.this, About.class);
-				//intent.setClass(logon.this, login.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //直接关闭Activity
+				Intent intent = new Intent(MainActivity.this, About.class);
+				// intent.setClass(logon.this, login.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // 直接关闭Activity
 				startActivity(intent);
 			}
 		});
@@ -246,6 +258,30 @@ public class MainActivity extends Activity implements
 
 			}
 		}, 1500);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			exit();
+			return false;
+		} else {
+			return super.onKeyDown(keyCode, event);
+		}
+	}
+
+	public void exit() {
+		if (!isExit) {
+			isExit = true;
+			Toast.makeText(getApplicationContext(), "再按一次退出程序",
+					Toast.LENGTH_SHORT).show();
+			mHandlerExit.sendEmptyMessageDelayed(0, 2000);
+		} else {
+			Intent intent = new Intent(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			startActivity(intent);
+			System.exit(0);
+		}
 	}
 
 }
