@@ -61,7 +61,7 @@ public class PullDownListView extends FrameLayout implements
 	private boolean isEnd = true;
 	private boolean listviewDoScroll = false;
 	private boolean isFirstLoading = false;
-	private boolean mLongPressing;// 濡傛灉璁剧疆涓簍rue璇存槑鍒氬ソ鍒颁簡鎵ц闀挎寜鐨勬椂闂?
+	private boolean mLongPressing;// 如果设置为true说明刚好到了执行长按的时
 	private boolean mPendingRemoved = false;//
 	private String pulldowntorefresh;
 	private String releasetorefresh;
@@ -73,11 +73,11 @@ public class PullDownListView extends FrameLayout implements
 	private float lastY;
 	private boolean useempty = true;
 
-	//杩欎釜鏍囩浣滀负娴嬭瘯鐢?
+	//这个标签作为测试
 	String TAG = "PullDownListView";
 
 	/**
-	 * 闀挎寜妫?煡鏂规硶鎵ц1绾跨▼
+	 * 长按方法执行1线程
 	 * @author Administrator
 	 *
 	 */
@@ -91,7 +91,7 @@ public class PullDownListView extends FrameLayout implements
 	}
 
 	/**
-	 * 闀挎寜妫?煡鏂规硶鎵ц2绾跨▼ ----> 寤跺悗 100 
+	 * 长按方法执行2线程 ----> 延后 100 
 	 * @author Administrator
 	 *
 	 */
@@ -146,7 +146,7 @@ public class PullDownListView extends FrameLayout implements
 	}
 
 	/**
-	 * 涓嬫媺鍒锋柊浠ュ強鍔犺浇鏇村鍥炶皟鐩戝惉鎺ュ彛
+	 * 下拉刷新以及加载更多回调监听接口
 	 * @author Administrator
 	 *
 	 */
@@ -156,7 +156,7 @@ public class PullDownListView extends FrameLayout implements
 		public abstract void onLoadMore();
 	}
 	/**
-	 * 鐩存帴new鏃惰皟鐢ㄧ殑鏋勯?鏂规硶 
+	 * 直接new时调用的构方法 
 	 * @param context
 	 */
 	public PullDownListView(Context context) {
@@ -168,7 +168,7 @@ public class PullDownListView extends FrameLayout implements
 	}
 	
 	/**
-	 * 鍦▁ml涓娇鐢ㄦ椂璋冪敤鐨勬瀯閫犳柟娉?
+	 * 在xml中使用时调用的构造方
 	 * @param context
 	 */
 	public PullDownListView(Context context, AttributeSet att) {
@@ -183,25 +183,25 @@ public class PullDownListView extends FrameLayout implements
 	View view;
 
 	/**
-	 * 娣诲姞鍒锋柊澶撮儴鐨勬帶浠?
+	 * 添加刷新头部的控
 	 */
 	private void addRefreshBar() {
 
-		//鍚戜笂婊戝姩鐨勫姩鐢?
+		//向上滑动的动
 		mAnimationUp = AnimationUtils.loadAnimation(getContext(),R.anim.rotate_up);
 		mAnimationUp.setAnimationListener(this);
 		
-		//鍚戜笅婊戝姩鐨勫姩鐢?
+		//向下滑动的动
 		mAnimationDown = AnimationUtils.loadAnimation(getContext(),R.anim.rotate_down);
 		mAnimationDown.setAnimationListener(this);
 		
-		//鍒锋柊澶撮儴鐨剉iew
+		//刷新头部的view
 		view = LayoutInflater.from(getContext()).inflate(R.layout.refresh_bar,null);
-		//娣诲姞view鍦ㄦ湰鎺т欢涓?
+		//添加view在本控件
 		addView(view);
 		
 		/*
-		 * 浠ヤ笅閮芥槸鍒锋柊澶撮儴鐨勪竴浜涙帶浠剁殑璁剧疆
+		 * 以下都是刷新头部的一些控件的设置
 		 */
 		mFirstChild = (LinearLayout) view;
 		mUpdateContent = (FrameLayout) getChildAt(0).findViewById(R.id.iv_content);
@@ -275,7 +275,7 @@ public class PullDownListView extends FrameLayout implements
 	}
 
 	/**
-	 * 璁剧疆娌℃湁鏁版嵁鏃堕粯璁ゅ浘鐗?	 * 
+	 * 设置没有数据时默认图	 * 
 	 * @param empty
 	 */
 	public void setEmptyHeaderView(View empty) {
@@ -283,7 +283,7 @@ public class PullDownListView extends FrameLayout implements
 	}
 
 	/**
-	 * 娣诲姞绌虹殑瀹氶儴view
+	 * 添加空的定部view
 	 */
 	public void addEmptyHeaderView() {
 		header.removeAllViews();
@@ -291,7 +291,7 @@ public class PullDownListView extends FrameLayout implements
 			header.addView(emptyHeaderView);
 	}
 	/**
-	 * 绉婚櫎椤堕儴绌簐iew
+	 * 移除顶部空view
 	 */
 	public void removeEmptyHeaderView() {
 		if (emptyHeaderView != null)
@@ -299,7 +299,7 @@ public class PullDownListView extends FrameLayout implements
 	}
 
 	/**
-	 * 鍒濆鍖栬缃強鍙橀噺
+	 * 初始化设置及变量
 	 */
 	private void init() {
 		MAX_LENGHT = getResources().getDimensionPixelSize(
@@ -316,16 +316,16 @@ public class PullDownListView extends FrameLayout implements
 		loading = getContext().getText(R.string.loading).toString();
 	}
 
-	/** deltaY > 0 鍚戜笂 */
+	/** deltaY > 0 向上 */
 	private boolean move(float deltaY, boolean auto) {
-		//move 鏂规硶鎵ц " 
+		//move 方法执行 " 
 		if (deltaY > 0 && mFirstChild.getTop() == -MAX_LENGHT) {
 			mPading = -MAX_LENGHT;
 			return false;
 		}
 
 		if (auto) {
-			//move 鏂规硶鎵ц
+			//move 方法执行
 			if (mFirstChild.getTop() - deltaY < mDestPading) {
 				deltaY = mFirstChild.getTop() - mDestPading;
 			}
@@ -334,7 +334,7 @@ public class PullDownListView extends FrameLayout implements
 			mPading = mFirstChild.getTop();
 			if (mDestPading == 0 && mFirstChild.getTop() == 0
 					&& mState == SCROLL_TO_REFRESH) {
-				//onRefresh 鍒锋柊鏂规硶鎵ц
+				//onRefresh 刷新方法执行
 				onRefresh();
 			} else if (mDestPading == -MAX_LENGHT) {
 			}
@@ -381,7 +381,7 @@ public class PullDownListView extends FrameLayout implements
 				mTitle.setText(pulldowntorefresh);
 
 				if (mLastTop >= 0 && mState != SCROLL_TO_CLOSE) {
-					mArrow.startAnimation(mAnimationUp);//鍚戜笂绉诲姩鍔ㄧ敾
+					mArrow.startAnimation(mAnimationUp);//向上移动动画
 				}
 
 			} else if (mFirstChild.getTop() > 0) {
@@ -390,14 +390,14 @@ public class PullDownListView extends FrameLayout implements
 				mArrow.setVisibility(View.VISIBLE);
 
 				if (mLastTop <= 0) {
-					mArrow.startAnimation(mAnimationDown);//鍚戜笅绉诲姩鍔ㄧ敾
+					mArrow.startAnimation(mAnimationDown);//向下移动动画
 				}
 			}
 		}
 		mLastTop = mFirstChild.getTop();
 	}
 
-	//release 鏂规硶鎵ц 	
+	//release 方法执行 	
 	private boolean release() {
 		if (listviewDoScroll) {
 			listviewDoScroll = false;
@@ -417,7 +417,7 @@ public class PullDownListView extends FrameLayout implements
 		mFlinger.startUsingDistance(MAX_LENGHT, CLOSEDELAY);
 	}
 
-	//scrollToUpdate 鏂规硶鎵ц
+	//scrollToUpdate 方法执行
 	public void scrollToUpdate(boolean load) {
 		mState = SCROLL_TO_REFRESH;
 
@@ -466,7 +466,7 @@ public class PullDownListView extends FrameLayout implements
 	private void updateCommon() {
 		if (mListView.getCount() == (mListView.getHeaderViewsCount() + mListView
 				.getFooterViewsCount())) {
-			Log.e("out", "鏁版嵁涓虹┖");
+			Log.e("out", "数据为空");
 			if (useempty)
 				addEmptyHeaderView();
 		} else {
@@ -486,14 +486,14 @@ public class PullDownListView extends FrameLayout implements
 		}
 		isFirstLoading = true;
 		foot.setEnabled(false);
-		//onFirstLoad 鏂规硶鎵ц 
+		//onFirstLoad 方法执行 
 		mState = STATE_REFRESH;
 		mProgressBar2.setVisibility(View.VISIBLE);
 		more.setText(R.string.loading);
 	}
 
 	public void onLoadMore() {
-		//onLoadMore 鏂规硶鎵ц 
+		//onLoadMore 方法执行 
 		foot.setEnabled(false);
 		mState = STATE_REFRESH;
 		mProgressBar2.setVisibility(View.VISIBLE);
@@ -540,7 +540,7 @@ public class PullDownListView extends FrameLayout implements
 					|| mState == STATE_REFRESH) {
 				super.dispatchTouchEvent(e);
 			} else {
-				//鎵ц閲婃斁鏂规硶 
+				//执行释放方法 
 				handled = release();
 			}
 			break;
@@ -551,7 +551,7 @@ public class PullDownListView extends FrameLayout implements
 		case MotionEvent.ACTION_DOWN:
 			downEvent = e;
 			mLongPressing = false;
-			//闀挎寜鐨勬椂闂撮棿闅?
+			//长按的时间间
 			postDelayed(mPendingCheckForLongPress,
 					ViewConfiguration.getLongPressTimeout() + 100);
 			mPendingRemoved = false;
@@ -572,7 +572,7 @@ public class PullDownListView extends FrameLayout implements
 					e2.printStackTrace();
 					return true;
 				}
-			} else if (handled && mListView.getTop() > 0 && deltaY < 0) {// deltaY灏忎簬0锛屽悜锟?
+			} else if (handled && mListView.getTop() > 0 && deltaY < 0) {// deltaY小于0，向
 				e.setAction(MotionEvent.ACTION_CANCEL);
 				super.dispatchTouchEvent(e);
 			}
@@ -627,7 +627,7 @@ public class PullDownListView extends FrameLayout implements
 	public void onLongPress(MotionEvent e) {
 	}
 
-	/** deltaY > 0 鍚戜笂 */
+	/** deltaY > 0 向上 */
 	public boolean onScroll(MotionEvent curdown, MotionEvent cur, float deltaX,
 			float deltaY) {
 		deltaY = (float) ((double) deltaY * SCALE);
@@ -645,7 +645,7 @@ public class PullDownListView extends FrameLayout implements
 		if (deltaY < 0F && flag || getChildAt(0).getTop() > -MAX_LENGHT) { // deltaY
 																			// <
 																			// 0
-																			// 鍚戜笅
+																			// 向下
 			handled = move(deltaY, false);
 		} else
 			handled = false;

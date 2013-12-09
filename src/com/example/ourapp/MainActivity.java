@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -30,11 +31,12 @@ public class MainActivity extends Activity implements
 	boolean isExit;
 	private PullDownListView mPullDownView;
 	private ListView mListView;
-	private List<String> list = new ArrayList<String>();
+	private List<Map<String, Object>>  dataList = new ArrayList<Map<String, Object>>();
 	private SimpleAdapter adapter;
 	private Handler mHandler = new Handler();
-	private int maxAount = 20;// 设置了最大数据值
-
+//	private int maxAount = 20;// 设置了最大数据值
+	int lastestIndex = 1; //最近加在的记录索引
+	String[] names;
 	Handler mHandlerExit = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -53,8 +55,9 @@ public class MainActivity extends Activity implements
 		mPullDownView.setRefreshListioner(this);
 		mListView = mPullDownView.mListView;
 
+		dataList = getData();
 		// ListView listview = (ListView) findViewById(R.id.lv);
-		adapter = new SimpleAdapter(this, getData(), R.layout.listview_item,
+		adapter = new SimpleAdapter(this, dataList, R.layout.listview_item,
 				new String[] { "img", "name", "logo", "place", "donation",
 						"donation", "jindu", "still_need", "riqi", "num",
 						"file" }, new int[] { R.id.iv, R.id.name, R.id.logo,
@@ -164,29 +167,49 @@ public class MainActivity extends Activity implements
 			}
 		});
 	}
-
+	
 	private List<Map<String, Object>> getData() {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		// Map<String, Object> map = new HashMap<String, Object>();
 
-		DBManager dbm = new DBManager(this);
-		SQLiteDatabase db = dbm.openDatabase();
+//		DBManager dbm = new DBManager(this);
+//		SQLiteDatabase db = dbm.openDatabase();
 
-		String sql = "select * from Name";
-		Cursor c = db.rawQuery(sql, null);
-		if (c.moveToFirst()) {
+//		String sql = "select * from Name";
+//		Cursor c = db.rawQuery(sql, null);
+		names = new String[]{"孟浩然", "李白", "杜甫", "唐伯虎", "王勃", "杨炯", "卢照邻", "古天乐"};
+		
+		if(lastestIndex > names.length - 1) {
+			return new ArrayList<Map<String,Object>>();
+		}
+		int fromIndex = lastestIndex;
+		int endIndex = fromIndex + 5;
+		
+		if(endIndex > names.length) {
+			endIndex = names.length;
+		}
+		
+//		if (c.moveToFirst()) {
 			do {
 				Map<String, Object> map = new HashMap<String, Object>();
-				// map.put("img",R.drawable.img2);
-				// map.put("text", "我");
-				int num = c.getInt(0);
-				Picture p = new Picture();
-				String name = c.getString(1);
-				String logo = c.getString(2);
-				String place = c.getString(3);
-				int donation = c.getInt(4);
-				int need = c.getInt(5);
+//				int num = c.getInt(0);
+//				String name = c.getString(1);
+//				String logo = c.getString(2);
+//				String place = c.getString(3);
+//				int donation = c.getInt(4);
+//				int need = c.getInt(5);
+//				String riqi = c.getString(6);
+//				String file = c.getString(7);
+				int num = fromIndex;
+				String name = names[fromIndex - 1];
+//				String logo = logos[fromIndex - 1];
+				String place = "浙江省杭州市";
+				int donation = new Random().nextInt(10000);
+				int need = 10000;
+				String riqi = "2013-12-12";
+				String file = "file";
 
+				Picture p = new Picture();
 				int still_need = need - donation;
 
 				DecimalFormat df = new DecimalFormat("0.00");
@@ -194,14 +217,11 @@ public class MainActivity extends Activity implements
 						/ (float) need));
 				String jindu = String.valueOf((int) (f * 100)) + "%";
 
-				String riqi = c.getString(6);
-
-				String file = c.getString(7);
 
 				map.put("num", num);
 				map.put("img", p.getPicture(num - 1));
 				map.put("name", name);
-				map.put("logo", logo);
+				map.put("logo", "[求助]" + name + "跪求诸位帮忙");
 				map.put("place", place);
 				map.put("donation", donation);
 				map.put("still_need", still_need);
@@ -209,9 +229,12 @@ public class MainActivity extends Activity implements
 				map.put("jindu", jindu);
 				map.put("file", file);
 				list.add(map);
-			} while (c.moveToNext());
-		}
-		dbm.closeDatabase();
+//			} while (c.moveToNext());
+			} while (fromIndex++ < endIndex);
+//		}
+			
+			lastestIndex = endIndex + 1;
+//		dbm.closeDatabase();
 		return list;
 	}
 
@@ -226,16 +249,25 @@ public class MainActivity extends Activity implements
 	 * 刷新，先清空list中数据然后重新加载更新内容
 	 */
 	public void onRefresh() {
+		dataList.clear();
+		adapter.notifyDataSetChanged();
 
 		mHandler.postDelayed(new Runnable() {
 
 			public void run() {
-				list.clear();
-				// addLists(10);
-				mPullDownView.onRefreshComplete();// 这里表示刷新处理完成后把上面的加载刷新界面隐藏
-				mPullDownView.setMore(true);// 这里设置true表示还有更多加载，设置为false底部将不显示更多
-				adapter.notifyDataSetChanged();
+				lastestIndex = 1;
+//				// addLists(10);
+//				mPullDownView.onRefreshComplete();// 这里表示刷新处理完成后把上面的加载刷新界面隐藏
+//				mPullDownView.setMore(true);// 这里设置true表示还有更多加载，设置为false底部将不显示更多
+//				adapter.notifyDataSetChanged();
 
+				dataList.addAll(getData());
+				if (dataList.size() < names.length)// 判断当前list中已添加的数据是否小于最大值maxAount，是那么久显示更多否则不显示
+					mPullDownView.setMore(true);// 这里设置true表示还有更多加载，设置为false底部将不显示更多
+				else
+					mPullDownView.setMore(false);
+				mPullDownView.onRefreshComplete();// 这里表示刷新处理完成后把上面的加载刷新界面隐藏
+				adapter.notifyDataSetChanged();
 			}
 		}, 1500);
 
@@ -250,7 +282,8 @@ public class MainActivity extends Activity implements
 			public void run() {
 				// addLists(5);//每次加载五项新内容
 				mPullDownView.onLoadMoreComplete();// 这里表示加载更多处理完成后把下面的加载更多界面（隐藏或者设置字样更多）
-				if (list.size() < maxAount)// 判断当前list中已添加的数据是否小于最大值maxAount，是那么久显示更多否则不显示
+				dataList.addAll(getData());
+				if (dataList.size() < names.length)// 判断当前list中已添加的数据是否小于最大值maxAount，是那么久显示更多否则不显示
 					mPullDownView.setMore(true);// 这里设置true表示还有更多加载，设置为false底部将不显示更多
 				else
 					mPullDownView.setMore(false);
