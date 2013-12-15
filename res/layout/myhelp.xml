@@ -9,14 +9,13 @@
         android:id="@+id/helpLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginTop="25dp" >
+        android:layout_gravity="left" >
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="捐助金额："
+            android:text="捐助总额："
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -35,8 +34,42 @@
         android:text="捐助明细列表："
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="受助者"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="所在地区"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="捐助金额"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:layout_width="80dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="捐助时间"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/myhelp_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </ListView>

@@ -24,8 +24,8 @@ public class login extends Activity {
 
 		et1 = (EditText) findViewById(R.id.name);
 		et2 = (EditText) findViewById(R.id.password);
-		et1.setText("qq");
-		et2.setText("123");
+//		et1.setText("qq");
+//		et2.setText("123");
 		
 		b1 = (Button) findViewById(R.id.login);
 		b2 = (Button) findViewById(R.id.logon);
@@ -49,10 +49,15 @@ public class login extends Activity {
 							Toast.makeText(login.this, "µÇÂ¼³É¹¦",
 									Toast.LENGTH_SHORT).show();
 							db.close();
+							
+							AppSession.setHasLogin(true);
+							AppSession.setUSER_NAME(name);
+//							setLogin();
+							
 							Intent intent = new Intent(login.this,
 									MainActivity.class);
-							 finish();
 							startActivity(intent);
+							finish();
 						} else {
 							Toast.makeText(login.this, "ÃÜÂë´íÎó",
 									Toast.LENGTH_SHORT).show();

@@ -15,6 +15,26 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/imageButton1"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="^_^" />
+
+                <TextView
+                    android:id="@+id/user_hello"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="用户,你好"
+                    android:textSize="20dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            </LinearLayout>
+
             <Button
                 android:id="@+id/but_myprofile"
                 android:layout_width="fill_parent"

@@ -99,6 +99,14 @@ public class Detail extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
+				
+				if (!AppSession.isHasLogin()) {
+					Intent intent = new Intent(Detail.this, login.class);
+					startActivity(intent);
+					finish();
+					return;
+				}
+				
 				// TODO Auto-generated method stub
 				// vv.setVideoPath("/sdcard/test.mp4");
 				// vv.start();

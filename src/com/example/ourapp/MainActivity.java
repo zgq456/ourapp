@@ -1,5 +1,7 @@
 package com.example.ourapp;
 
+import java.net.CookieStore;
+import java.net.HttpCookie;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.http.cookie.Cookie;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -46,6 +51,7 @@ public class MainActivity extends Activity implements
 
 	};
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -166,7 +172,17 @@ public class MainActivity extends Activity implements
 				startActivity(intent);
 			}
 		});
+		
+		TextView tv = (TextView)findViewById(R.id.user_hello);
+		if (AppSession.isHasLogin()) {
+			tv.setText(AppSession.getUSER_NAME() +", ÄãºÃ");
+		}
+		else
+		{
+			tv.setText("ß[¿Í , ÄãºÃ");
+		}
 	}
+	
 	
 	private List<Map<String, Object>> getData() {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
